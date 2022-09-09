@@ -1,5 +1,5 @@
 /*
- * coreSNTP v1.1.0
+ * coreSNTP v1.1.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -32,6 +32,8 @@
 
 /* Include API header. */
 #include "core_sntp_serializer.h"
+
+#include "core_sntp_config_defaults.h"
 
 /**
  * @brief The version of SNTP supported by the coreSNTP library by complying

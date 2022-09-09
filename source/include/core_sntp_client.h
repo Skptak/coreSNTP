@@ -1,5 +1,5 @@
 /*
- * coreSNTP v1.1.0
+ * coreSNTP v1.1.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -39,18 +39,6 @@
 
 /* Include coreSNTP Serializer header. */
 #include "core_sntp_serializer.h"
-
-/* SNTP_DO_NOT_USE_CUSTOM_CONFIG allows building the SNTP library
- * without a custom config. If a custom config is provided, the
- * SNTP_DO_NOT_USE_CUSTOM_CONFIG macro should not be defined. */
-#ifndef SNTP_DO_NOT_USE_CUSTOM_CONFIG
-    /* Include custom config file before other headers. */
-    #include "core_sntp_config.h"
-#endif
-
-/* Include config defaults header to get default values of configs not
- * defined in core_sntp_config.h file. */
-#include "core_sntp_config_defaults.h"
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
