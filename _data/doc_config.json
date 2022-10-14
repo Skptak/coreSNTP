@@ -1,6 +1,8 @@
 {
   "name": "coreSNTP",
-  "releases": [],
+  "releases": [
+    "v1.3.0"
+  ],
   "branches": [
     "main"
   ]
