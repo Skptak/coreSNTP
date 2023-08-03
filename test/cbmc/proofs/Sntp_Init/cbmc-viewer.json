@@ -1,7 +1,5 @@
-{ "expected-missing-functions":
-  [
-
-  ],
+{
+  "expected-missing-functions": [],
   "proof-name": "Sntp_Init",
   "proof-root": "test/cbmc/proofs"
 }

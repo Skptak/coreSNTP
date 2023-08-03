@@ -4,14 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       commit_id:
-        description: 'Commit ID to tag and create a release for'
+        description: "Commit ID to tag and create a release for"
         required: true
       version_number:
-        description: 'Release Version Number (Eg, v1.0.0)'
+        description: "Release Version Number (Eg, v1.0.0)"
         required: true
       delete_existing_tag_release:
-        description: 'Is this a re-release of existing tag/release? (Default: false)'
-        default: 'false'
+        description:
+          "Is this a re-release of existing tag/release? (Default: false)"
+        default: "false"
         required: false
 jobs:
   clean-existing-tag-and-release:
@@ -43,7 +44,10 @@ jobs:
               gh release delete --yes $VERSION_NUM
           fi
   tag-commit:
-    if: ${{ ( github.event.inputs.delete_existing_tag_release == 'true' && success() )  || ( github.event.inputs.delete_existing_tag_release == 'false' && always() ) }}
+    if:
+      ${{ ( github.event.inputs.delete_existing_tag_release == 'true' &&
+      success() )  || ( github.event.inputs.delete_existing_tag_release ==
+      'false' && always() ) }}
     needs: clean-existing-tag-and-release
     name: Generate SBOM and tag commit
     runs-on: ubuntu-latest
@@ -57,7 +61,9 @@ jobs:
           git config --global user.name ${{ github.actor }}
           git config --global user.email ${{ github.actor }}@users.noreply.github.com
       - name: create a new branch that references commit id
-        run: git checkout -b ${{ github.event.inputs.version_number }} ${{ github.event.inputs.commit_id }}
+        run:
+          git checkout -b ${{ github.event.inputs.version_number }} ${{
+          github.event.inputs.commit_id }}
       - name: Generate SBOM
         uses: Skptak/CI-CD-Github-Actions/sbom-generator@main
         with:
@@ -79,7 +85,10 @@ jobs:
           git checkout tags/${{ github.event.inputs.version_number }}
           git diff ${{ github.event.inputs.commit_id }} tags/${{ github.event.inputs.version_number }}
   create-zip:
-    if: ${{ ( github.event.inputs.delete_existing_tag_release == 'true' && success() )  || ( github.event.inputs.delete_existing_tag_release == 'false' && always() ) }}
+    if:
+      ${{ ( github.event.inputs.delete_existing_tag_release == 'true' &&
+      success() )  || ( github.event.inputs.delete_existing_tag_release ==
+      'false' && always() ) }}
     needs: tag-commit
     name: Create ZIP and verify package for release asset.
     runs-on: ubuntu-latest
@@ -143,7 +152,10 @@ jobs:
     needs:
       - create-zip
       - deploy-doxygen
-    if: ${{ ( github.event.inputs.delete_existing_tag_release == 'true' && success() )  || ( github.event.inputs.delete_existing_tag_release == 'false' && always() ) }}
+    if:
+      ${{ ( github.event.inputs.delete_existing_tag_release == 'true' &&
+      success() )  || ( github.event.inputs.delete_existing_tag_release ==
+      'false' && always() ) }}
     name: Create Release and Upload Release Asset
     runs-on: ubuntu-latest
     steps:
@@ -155,7 +167,9 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version_number }}
           release_name: ${{ github.event.inputs.version_number }}
-          body: Release ${{ github.event.inputs.version_number }} of the coreSNTP Library.
+          body:
+            Release ${{ github.event.inputs.version_number }} of the coreSNTP
+            Library.
           draft: false
           prerelease: false
       - name: Download ZIP artifact

@@ -8,7 +8,8 @@ extraction:
       packages:
         - g++
     after_prepare:
-        - export CFLAGS='-Isource/include -Wall -Wextra -Werror -Wformat -Wformat-security -Warray-bounds -DSNTP_DO_NOT_USE_CUSTOM_CONFIG'
+      - export CFLAGS='-Isource/include -Wall -Wextra -Werror -Wformat
+        -Wformat-security -Warray-bounds -DSNTP_DO_NOT_USE_CUSTOM_CONFIG'
     index:
       build_command:
         - g++ $CFLAGS -c source/core_sntp_client.c source/core_sntp_serializer.c
