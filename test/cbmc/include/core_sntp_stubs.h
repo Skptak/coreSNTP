@@ -4,35 +4,37 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
  * @file core_sntp_stubs_stubs.h
- * @brief Stubs definitions of UDP transport interface and authentication interface of coreSNTP API.
+ * @brief Stubs definitions of UDP transport interface and authentication
+ * interface of coreSNTP API.
  */
 #ifndef CORE_SNTP_CBMC_STUBS_H_
 #define CORE_SNTP_CBMC_STUBS_H_
 
+#include "core_sntp_client.h"
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdbool.h>
-#include "core_sntp_client.h"
 
 /**
  * @brief Application defined network interface send function.
@@ -79,13 +81,16 @@ int32_t NetworkInterfaceReceiveStub( NetworkContext_t * pNetworkContext,
  * servers are configured in the library, and they require different security
  * mechanisms or authentication credentials to use.
  * @param[in] pBuffer SNTP request buffer.
- * @param[in] bufferSize The maximum amount of data that can be held by the buffer.
- * @param[out] pAuthCodeSize This should be filled with size of the authentication
- * data appended to the SNTP request buffer, @p pBuffer.
+ * @param[in] bufferSize The maximum amount of data that can be held by the
+ * buffer.
+ * @param[out] pAuthCodeSize This should be filled with size of the
+ * authentication data appended to the SNTP request buffer, @p pBuffer.
  *
  * @return The function SHOULD return one of the following integer codes:
- * - #SntpSuccess when the authentication data is successfully appended to @p pBuffer.
- * - #SntpErrorBufferTooSmall when the user-supplied buffer (to the SntpContext_t through
+ * - #SntpSuccess when the authentication data is successfully appended to @p
+ * pBuffer.
+ * - #SntpErrorBufferTooSmall when the user-supplied buffer (to the
+ * SntpContext_t through
  * @ref Sntp_Init) is not large enough to hold authentication data.
  */
 SntpStatus_t GenerateClientAuthStub( SntpAuthContext_t * pContext,
@@ -122,8 +127,8 @@ SntpStatus_t ValidateServerAuthStub( SntpAuthContext_t * pContext,
  * @param[out] pIpV4Addr This should be filled with the resolved IPv4 address.
  * of @p pTimeServer.
  *
- * @return `true` if DNS resolution is successful; otherwise `false` to represent
- * failure.
+ * @return `true` if DNS resolution is successful; otherwise `false` to
+ * represent failure.
  */
 bool ResolveDnsFuncStub( const SntpServerInfo_t * pServerAddr,
                          uint32_t * pIpV4Addr );

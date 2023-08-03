@@ -1,13 +1,13 @@
-#include <stdlib.h>
+#include "core_sntp_client.h"
+#include <arpa/inet.h>
+#include <assert.h>
 #include <netdb.h>
+#include <poll.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
 #include <time.h>
 #include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <poll.h>
-#include <string.h>
-#include <assert.h>
-#include "core_sntp_client.h"
 
 /* @[code_example_sntpdnsresolve] */
 /* Example POSIX implementation of SntpDnsReolve_t interface. */
@@ -24,11 +24,15 @@ static bool resolveDns( const SntpServerInfo_t * pServerAddr,
     hints.ai_socktype = ( int32_t ) SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
-    dnsStatus = getaddrinfo( pServerAddr->pServerName, NULL, &hints, &pListHead );
+    dnsStatus = getaddrinfo( pServerAddr->pServerName,
+                             NULL,
+                             &hints,
+                             &pListHead );
 
     if( dnsStatus == 0 )
     {
-        struct sockaddr_in * pAddrInfo = ( struct sockaddr_in * ) pListHead->ai_addr;
+        struct sockaddr_in * pAddrInfo = ( struct sockaddr_in * )
+                                             pListHead->ai_addr;
         inet_ntop( pAddrInfo->sin_family,
                    &pAddrInfo->sin_addr,
                    ( int8_t * ) pIpV4Addr,
@@ -52,7 +56,8 @@ struct NetworkContext
 /* @[code_example_networkcontext] */
 
 /* @[code_example_udptransport_sendto] */
-/* Example POSIX implementation of the UdpTransportSendTo_t function of UDP transport interface. */
+/* Example POSIX implementation of the UdpTransportSendTo_t function of UDP
+ * transport interface. */
 static int32_t UdpTransport_Send( NetworkContext_t * pNetworkContext,
                                   uint32_t serverAddr,
                                   uint16_t serverPort,
@@ -78,7 +83,8 @@ static int32_t UdpTransport_Send( NetworkContext_t * pNetworkContext,
 
         bytesSent = sendto( pNetworkContext->udpSocket,
                             pBuffer,
-                            bytesToSend, 0,
+                            bytesToSend,
+                            0,
                             ( const struct sockaddr * ) &addrInfo,
                             sizeof( addrInfo ) );
     }
@@ -92,7 +98,8 @@ static int32_t UdpTransport_Send( NetworkContext_t * pNetworkContext,
 /* @[code_example_udptransport_sendto] */
 
 /* @[code_example_udptransport_recvfrom] */
-/* Example POSIX implementation of the UdpTransportRecvFrom_t function of UDP transport interface. */
+/* Example POSIX implementation of the UdpTransportRecvFrom_t function of UDP
+ * transport interface. */
 static int32_t UdpTransport_Recv( NetworkContext_t * pNetworkContext,
                                   uint32_t serverAddr,
                                   uint16_t serverPort,
@@ -117,8 +124,10 @@ static int32_t UdpTransport_Recv( NetworkContext_t * pNetworkContext,
         addrInfo.sin_addr.s_addr = htonl( serverAddr );
         socklen_t addrLen = sizeof( addrInfo );
 
-        bytesReceived = recvfrom( pNetworkContext->udpSocket, pBuffer,
-                                  bytesToRecv, 0,
+        bytesReceived = recvfrom( pNetworkContext->udpSocket,
+                                  pBuffer,
+                                  bytesToRecv,
+                                  0,
                                   ( struct sockaddr * ) &addrInfo,
                                   &addrLen );
     }
@@ -141,16 +150,15 @@ static void sntpClient_SetTime( const SntpServerInfo_t * pTimeServer,
     /* @[code_example_sntp_converttounixtime] */
     uint32_t unixSecs;
     uint32_t unixMs;
-    SntpStatus_t status = Sntp_ConvertToUnixTime( pServerTime, &unixSecs, &unixMs );
+    SntpStatus_t status = Sntp_ConvertToUnixTime( pServerTime,
+                                                  &unixSecs,
+                                                  &unixMs );
 
     /* @[code_example_sntp_converttounixtime] */
     assert( status == SntpSuccess );
 
-    struct timespec serverTime =
-    {
-        .tv_sec  = unixSecs,
-        .tv_nsec = unixMs * 1000
-    };
+    struct timespec serverTime = { .tv_sec = unixSecs,
+                                   .tv_nsec = unixMs * 1000 };
 
     clock_settime( CLOCK_REALTIME, &serverTime );
 }
@@ -165,24 +173,25 @@ static void sntpClient_GetTime( SntpTimestamp_t * pCurrentTime )
     ( void ) clock_gettime( CLOCK_REALTIME, &currTime );
 
     pCurrentTime->seconds = currTime.tv_sec;
-    pCurrentTime->fractions = ( currTime.tv_sec / 1000 ) * SNTP_FRACTION_VALUE_PER_MICROSECOND;
+    pCurrentTime->fractions = ( currTime.tv_sec / 1000 ) *
+                              SNTP_FRACTION_VALUE_PER_MICROSECOND;
 }
 /* @[code_example_sntpgettime] */
 
 /* Configuration constants for the example SNTP client. */
 
 /* Following Time Servers are used for illustrating the usage of library API.
- * The library can be configured to use ANY time server, whether publicly available
- * time service like NTP Pool or a privately owned NTP server. */
-#define TEST_TIME_SERVER_1                      "0.pool.ntp.org"
-#define TEST_TIME_SERVER_2                      "1.pool.ntp.org"
+ * The library can be configured to use ANY time server, whether publicly
+ * available time service like NTP Pool or a privately owned NTP server. */
+#define TEST_TIME_SERVER_1                   "0.pool.ntp.org"
+#define TEST_TIME_SERVER_2                   "1.pool.ntp.org"
 
-#define SERVER_RESPONSE_TIMEOUT_MS              3000
-#define TIME_REQUEST_SEND_WAIT_TIME_MS          2000
-#define TIME_REQUEST_RECEIVE_WAIT_TIME_MS       1000
+#define SERVER_RESPONSE_TIMEOUT_MS           3000
+#define TIME_REQUEST_SEND_WAIT_TIME_MS       2000
+#define TIME_REQUEST_RECEIVE_WAIT_TIME_MS    1000
 
-#define SYSTEM_CLOCK_FREQUENCY_TOLERANCE_PPM    500
-#define SYSTEM_CLOCK_DESIRED_ACCURACY_MS        300
+#define SYSTEM_CLOCK_FREQUENCY_TOLERANCE_PPM 500
+#define SYSTEM_CLOCK_DESIRED_ACCURACY_MS     300
 
 int main( void )
 {
@@ -196,18 +205,13 @@ int main( void )
     udpContext.udpSocket = socket( AF_INET, SOCK_DGRAM, 0 );
 
     /* Setup list of time servers. */
-    SntpServerInfo_t pTimeServers[] =
-    {
-        {
-            .port = SNTP_DEFAULT_SERVER_PORT,
-            .pServerName = TEST_TIME_SERVER_1,
-            .serverNameLen = strlen( TEST_TIME_SERVER_1 )
-        },
-        {
-            .port = SNTP_DEFAULT_SERVER_PORT,
-            .pServerName = TEST_TIME_SERVER_2,
-            .serverNameLen = strlen( TEST_TIME_SERVER_2 )
-        }
+    SntpServerInfo_t pTimeServers[] = {
+        { .port = SNTP_DEFAULT_SERVER_PORT,
+          .pServerName = TEST_TIME_SERVER_1,
+          .serverNameLen = strlen( TEST_TIME_SERVER_1 ) },
+        { .port = SNTP_DEFAULT_SERVER_PORT,
+          .pServerName = TEST_TIME_SERVER_2,
+          .serverNameLen = strlen( TEST_TIME_SERVER_2 ) }
     };
 
     /* Set the UDP transport interface object. */
@@ -223,7 +227,8 @@ int main( void )
     /* Initialize context. */
     SntpStatus_t status = Sntp_Init( &context,
                                      pTimeServers,
-                                     sizeof( pTimeServers ) / sizeof( SntpServerInfo_t ),
+                                     sizeof( pTimeServers ) /
+                                         sizeof( SntpServerInfo_t ),
                                      SERVER_RESPONSE_TIMEOUT_MS,
                                      networkBuffer,
                                      SNTP_PACKET_BASE_SIZE,
@@ -257,7 +262,9 @@ int main( void )
 
         do
         {
-            status = Sntp_ReceiveTimeResponse( &context, TIME_REQUEST_RECEIVE_WAIT_TIME_MS );
+            status = Sntp_ReceiveTimeResponse(
+                &context,
+                TIME_REQUEST_RECEIVE_WAIT_TIME_MS );
         } while( status == SntpNoResponseReceived );
 
         assert( status == SntpSuccess );
