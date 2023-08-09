@@ -1,5 +1,7 @@
 ## coreSNTP Library
 
+**[API Documentation Pages for current and previous releases of this library can be found here](https://freertos.github.io/coreSNTP/)**
+
 This repository contains the coreSNTP library, a client library to use Simple
 Network Time Protocol (SNTP) to synchronize device clocks with internet time.
 This library implements the SNTPv4 specification defined in
