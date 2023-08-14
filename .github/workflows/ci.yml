@@ -92,7 +92,7 @@ jobs:
       - name: Check Coverage
         uses: Skptak/CI-CD-Github-Actions/coverage-cop@main
         with:
-          path: ./build/coverage.info
+          coverage-file: ./build/coverage.info
   complexity:
     runs-on: ubuntu-latest
     steps:
