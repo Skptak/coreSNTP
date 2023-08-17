@@ -101,6 +101,7 @@ jobs:
         uses: Skptak/CI-CD-Github-Actions/complexity@main
         with:
           path: ./
+
   spell-check:
     runs-on: ubuntu-latest
     steps:
@@ -110,6 +111,7 @@ jobs:
         uses: FreeRTOS/CI-CD-Github-Actions/rust-spell-check@main
         with:
           path: ./
+
   formatting:
     runs-on: ubuntu-latest
     steps:
@@ -119,6 +121,7 @@ jobs:
         with:
           path: ./
           exclude-dirs: .git
+
   git-secrets:
     runs-on: ubuntu-latest
     steps:
@@ -135,6 +138,7 @@ jobs:
         run: |
           git-secrets --register-aws
           git-secrets --scan
+
   link-verifier:
     runs-on: ubuntu-latest
     steps:
@@ -143,6 +147,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: Skptak/CI-CD-Github-Actions/link-verifier@main
+
+  verify-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Run manifest verifier
+        uses: FreeRTOS/CI-CD-GitHub-Actions/manifest-verifier@main
+        with:
+          path: ./
+          fail-on-incorrect-version: true
 
   doxygen:
     runs-on: ubuntu-latest
