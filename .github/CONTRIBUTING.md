@@ -44,8 +44,8 @@ To send us a pull request, please:
    change.
 1. Ensure that your contributions conform to the
    [style guide](https://docs.aws.amazon.com/embedded-csdk/202011.00/lib-ref/docs/doxygen/output/html/guide_developer_styleguide.html).
-1. Format your code with uncrustify, using the config available in
-   [FreeRTOS/CI-CD-Github-Actions](https://github.com/FreeRTOS/CI-CD-Github-Actions/blob/main/formatting/uncrustify.cfg).
+1. Format your code with `clang-format`, using the config available at
+   [clang-format](../.clang-format). 
 1. Ensure local tests pass.
 1. Commit to your fork using clear commit messages.
 1. Send us a pull request, answering any default questions in the pull request
@@ -61,7 +61,7 @@ GitHub provides additional document on
 
 Looking at the existing issues is a great way to find something to contribute
 on. As our projects, by default, use the default GitHub issue labels
-((enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at
+(enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at
 any
 ['help wanted'](https://github.com/FreeRTOS/backoffAlgorithm/labels?q=help+wanted)
 issues is a great place to start.
