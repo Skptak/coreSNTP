@@ -802,8 +802,8 @@ static bool decideAboutReadRetry( const SntpTimestamp_t * pCurrentTime,
     {
         shouldRetry = false;
         LogDebug( ( "Did not receive server response: Read block time has expired: "
-                    "BlockTime=%ums, ResponseWaitElapsedTime=%lums",
-                    blockTimeMs, timeSinceRequestMs ) );
+                    "BlockTime=%ums, ResponseWaitElapsedTime=%llums",
+                    blockTimeMs, ( long long ) timeSinceRequestMs ) );
     }
     else
     {
