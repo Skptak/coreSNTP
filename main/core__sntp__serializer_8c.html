@@ -107,9 +107,9 @@ $(document).ready(function(){initNavTree('core__sntp__serializer_8c.html',''); i
 
 <p>Implementation of the Serializer API of the coreSNTP library.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;assert.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="core__sntp__serializer_8h_source.html">core_sntp_serializer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="core__sntp__config__defaults_8h_source.html">core_sntp_config_defaults.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -153,7 +153,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ac8f9569b5f0d4c5dfc0cb0cd0842c895"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__sntp__serializer_8c.html#ac8f9569b5f0d4c5dfc0cb0cd0842c895">KOD_CODE_RATE_UINT_VALUE</a>&#160;&#160;&#160;( 0x52415445U )</td></tr>
 <tr class="memdesc:ac8f9569b5f0d4c5dfc0cb0cd0842c895"><td class="mdescLeft">&#160;</td><td class="mdescRight">The integer value of the Kiss-o'-Death ASCII code, "RATE", used for comparison with data in an SNTP response.  <br /></td></tr>
 <tr class="separator:ac8f9569b5f0d4c5dfc0cb0cd0842c895"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaacfadcc9b6655aa09392826d867d0fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__sntp__serializer_8c.html#aaacfadcc9b6655aa09392826d867d0fd">CLOCK_OFFSET_MAX_TIME_DIFFERENCE</a>&#160;&#160;&#160;    ( ( ( ( int64_t ) INT32_MAX + 1 ) * 1000 ) )</td></tr>
+<tr class="memitem:aaacfadcc9b6655aa09392826d867d0fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__sntp__serializer_8c.html#aaacfadcc9b6655aa09392826d867d0fd">CLOCK_OFFSET_MAX_TIME_DIFFERENCE</a>&#160;&#160;&#160;( ( ( ( int64_t ) INT32_MAX + 1 ) * 1000 ) )</td></tr>
 <tr class="memdesc:aaacfadcc9b6655aa09392826d867d0fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to represent exactly half of the total number of seconds in an NTP era. As 32 bits are used to represent the "seconds" part of an SNTP timestamp, the half of the total range of seconds in an NTP era is 2^31 seconds, which represents ~68 years.  <br /></td></tr>
 <tr class="separator:aaacfadcc9b6655aa09392826d867d0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad423a3e191fa073a8a8cb101a2f4474"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__sntp__serializer_8c.html#aad423a3e191fa073a8a8cb101a2f4474">TOTAL_MILLISECONDS_IN_NTP_ERA</a>&#160;&#160;&#160;( ( ( int64_t ) UINT32_MAX + 1 ) * 1000 )</td></tr>
@@ -345,7 +345,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CLOCK_OFFSET_MAX_TIME_DIFFERENCE&#160;&#160;&#160;    ( ( ( ( int64_t ) INT32_MAX + 1 ) * 1000 ) )</td>
+          <td class="memname">#define CLOCK_OFFSET_MAX_TIME_DIFFERENCE&#160;&#160;&#160;( ( ( ( int64_t ) INT32_MAX + 1 ) * 1000 ) )</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -108,9 +108,9 @@ $(document).ready(function(){initNavTree('core__sntp__client_8h.html',''); initR
 
 <p>API of an SNTPv4 client library that can send time requests and receive time response to/from SNTP/NTP servers. The library follows the Best Practices suggested in the the SNTPv4 specification, <a href="https://tools.ietf.org/html/rfc4330">RFC 4330</a>. The library can be used to run an SNTP client in a dedicated deamon task to periodically synchronize time from the Internet.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="core__sntp__serializer_8h_source.html">core_sntp_serializer.h</a>&quot;</code><br />
 </div>
 <p><a href="core__sntp__client_8h_source.html">Go to the source code of this file.</a></p>
@@ -325,7 +325,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sends a request for time from the currently configured server (in the context). If the user has provided an authentication interface, the client authentication code is appended to the request before sending over the network by calling the <a class="el" href="group__sntp__callback__types.html#ga7f01446c0d655614b99fd4043c8f032a">SntpGenerateAuthCode_t</a> function of the <a class="el" href="struct_sntp_authentication_interface__t.html">SntpAuthenticationInterface_t</a>. </p>
-<dl class="section note"><dt>Note</dt><dd>This function will ONLY send a request if there is a server available in the configured list that has not rejected an earlier request for time. This adheres to the Best Practice functionality specified in [Section 10 Point 8 of SNTPv4 specification](<a href="https://tools.ietf.org/html/rfc4330#section-10">https://tools.ietf.org/html/rfc4330#section-10</a>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function will ONLY send a request if there is a server available in the configured list that has not rejected an earlier request for time. This adheres to the Best Practice functionality specified in <a href="https://tools.ietf.org/html/rfc4330#section-10">Section 10 Point 8 of SNTPv4 specification</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">pContext</td><td>The context representing an SNTPv4 client. </td></tr>
